@@ -1,0 +1,6 @@
+CREATE TABLE planos (
+    id SERIAL PRIMARY KEY,
+    tipo VARCHAR(20) NOT NULL UNIQUE,
+    valor NUMERIC(10,2) NOT NULL
+);
+
