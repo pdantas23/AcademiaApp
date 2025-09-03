@@ -12,6 +12,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Table(name = "horarios_disponiveis")
 public class HorarioDisponivelModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

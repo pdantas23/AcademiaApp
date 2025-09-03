@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "pagamentos")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Table(name = "pagamentos")
 public class PagamentoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

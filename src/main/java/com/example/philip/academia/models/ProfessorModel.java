@@ -1,5 +1,7 @@
 package com.example.philip.academia.models;
 
+import com.example.philip.academia.enums.professores.Especializacao;
+import com.example.philip.academia.enums.professores.Formacao;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -12,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Table(name = "professores")
 public class ProfessorModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,16 +26,13 @@ public class ProfessorModel {
 
     @Column(nullable = false)
     @NotBlank(message = "A especialidade é obrigatória.")
-    private String especialidade;
+    private Especializacao especialidade;
 
     @Column(nullable = false)
     @NotBlank(message = "A formação é obrigatória.")
-    private String formacao;
+    private Formacao formacao;
 
     @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HorarioDisponivelModel> horarios;
 
-    /*vamos criar enums com formacoes e algumas especialidades
-    ligadas a ela (por exemplo um fisioterapeuta nao pode ter
-            especializacao em algo de educacao fisica).*/
 }

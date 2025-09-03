@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Table(name = "planos")
 public class PlanoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

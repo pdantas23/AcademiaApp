@@ -1,11 +1,17 @@
 package com.example.philip.academia.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "aluno")
+@Table(name = "alunos")
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class AlunoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
