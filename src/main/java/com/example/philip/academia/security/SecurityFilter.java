@@ -26,20 +26,42 @@ public class SecurityFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         String authorizationHeader = request.getHeader("Authorization");
+        System.out.println("[DEBUG] Authorization header: " + authorizationHeader);
+
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             String token = authorizationHeader.substring(7);
-            String email = tokenService.validateToken(token);
+            System.out.println("[DEBUG] Token extraído: " + token);
 
-            if (!email.isEmpty() && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+            try {
+                String email = tokenService.validateToken(token);
+                System.out.println("[DEBUG] Email do token: " + email);
 
-                UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                if (email != null && !email.isEmpty() &&
+                        SecurityContextHolder.getContext().getAuthentication() == null) {
 
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+                    UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+                    System.out.println("[DEBUG] UserDetails carregado: " + userDetails.getUsername());
+                    System.out.println("[DEBUG] Authorities: " + userDetails.getAuthorities());
+
+                    UsernamePasswordAuthenticationToken authToken =
+                            new UsernamePasswordAuthenticationToken(
+                                    userDetails, null, userDetails.getAuthorities()
+                            );
+
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                    System.out.println("[DEBUG] SecurityContext atualizado com usuário autenticado");
+                } else {
+                    System.out.println("[DEBUG] Token inválido ou usuário já autenticado no contexto");
+                }
+
+            } catch (Exception e) {
+                System.out.println("[DEBUG] Erro ao validar token: " + e.getMessage());
             }
+        } else {
+            System.out.println("[DEBUG] Header Authorization ausente ou não contém Bearer");
         }
 
         filterChain.doFilter(request, response);
     }
+
 }

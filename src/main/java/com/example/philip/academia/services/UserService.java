@@ -27,14 +27,10 @@ public class UserService {
 
     public void cadastrarUsuario(UserDTO userDTO) {
        userRepository.findByEmail(userDTO.getEmail())
-                .ifPresent(u ->
-                    {throw new DuplicateResourceException("Email já cadastrado");
-                });
+                .ifPresent(u -> {throw new DuplicateResourceException("Email já cadastrado");});
 
         userRepository.findByCpf(userDTO.getCpf())
-                .ifPresent(u ->
-                    { throw new DuplicateResourceException("CPF já cadastrado");
-                });
+                .ifPresent(u -> { throw new DuplicateResourceException("CPF já cadastrado");});
 
         UserModel usuario = new UserModel(
                 null,

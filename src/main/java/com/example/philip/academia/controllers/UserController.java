@@ -27,7 +27,7 @@ public class UserController {
     private AuthService authService;
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<ResponseDTO<Void>> cadastrarUsuario(@RequestBody @Valid UserDTO user) {
+    public ResponseEntity<ResponseDTO<Void>> cadastrarProfessor(@RequestBody @Valid UserDTO user) {
         userService.cadastrarUsuario(user);
 
         ResponseDTO<Void> responseDTO = new ResponseDTO<>(

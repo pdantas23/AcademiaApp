@@ -18,8 +18,13 @@ public class HorarioDisponivelModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "dia_semana")
     private DayOfWeek diaDaSemana;
+
+    @Column(name = "hora_inicio")
     private LocalTime horaInicio;
+
+    @Column(name = "hora_fim")
     private LocalTime horaFim;
 
     @ManyToOne
