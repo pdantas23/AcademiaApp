@@ -1,12 +1,13 @@
 package com.example.philip.academia.models;
 
-import com.example.philip.academia.enums.TipoPlano;
+import com.example.philip.academia.enums.planos.TipoPlano;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -24,4 +25,10 @@ public class PlanoModel {
 
     @Column(nullable = false)
     private BigDecimal valor;
+
+    @Column(name = "duracao_em_dias")
+    private Integer duracaoEmDias;
+
+    @OneToMany(mappedBy = "plano")
+    private List<PagamentoModel> pagamentos;
 }

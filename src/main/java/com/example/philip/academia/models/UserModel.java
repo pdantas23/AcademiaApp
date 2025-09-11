@@ -1,6 +1,6 @@
 package com.example.philip.academia.models;
 
-import com.example.philip.academia.enums.UserRole;
+import com.example.philip.academia.enums.usuarios.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;

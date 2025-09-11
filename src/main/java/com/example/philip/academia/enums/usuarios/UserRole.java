@@ -1,4 +1,4 @@
-package com.example.philip.academia.enums;
+package com.example.philip.academia.enums.usuarios;
 
 public enum UserRole {
     ALUNO,

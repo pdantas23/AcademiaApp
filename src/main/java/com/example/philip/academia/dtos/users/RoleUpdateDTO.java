@@ -1,6 +1,6 @@
 package com.example.philip.academia.dtos.users;
 
-import com.example.philip.academia.enums.UserRole;
+import com.example.philip.academia.enums.usuarios.UserRole;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 

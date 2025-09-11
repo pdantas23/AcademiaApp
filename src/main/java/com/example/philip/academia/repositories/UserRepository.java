@@ -1,6 +1,6 @@
 package com.example.philip.academia.repositories;
 
-import com.example.philip.academia.enums.UserRole;
+import com.example.philip.academia.enums.usuarios.UserRole;
 import com.example.philip.academia.models.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

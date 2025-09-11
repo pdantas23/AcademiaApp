@@ -1,7 +1,7 @@
 package com.example.philip.academia.services;
 
 import com.example.philip.academia.dtos.professores.ProfessorDTO;
-import com.example.philip.academia.enums.UserRole;
+import com.example.philip.academia.enums.usuarios.UserRole;
 import com.example.philip.academia.enums.professores.Especializacao;
 import com.example.philip.academia.exceptionhandler.exceptions.DuplicateResourceException;
 import com.example.philip.academia.exceptionhandler.exceptions.EventNotFoundException;

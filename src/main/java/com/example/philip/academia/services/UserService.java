@@ -2,13 +2,12 @@ package com.example.philip.academia.services;
 
 import com.example.philip.academia.dtos.users.RoleUpdateDTO;
 import com.example.philip.academia.dtos.users.UserDTO;
-import com.example.philip.academia.enums.UserRole;
+import com.example.philip.academia.enums.usuarios.UserRole;
 import com.example.philip.academia.exceptionhandler.exceptions.DuplicateResourceException;
 import com.example.philip.academia.exceptionhandler.exceptions.EventNotFoundException;
 import com.example.philip.academia.exceptionhandler.exceptions.UnathorizedException;
 import com.example.philip.academia.models.UserModel;
 import com.example.philip.academia.repositories.UserRepository;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
