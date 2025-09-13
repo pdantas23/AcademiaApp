@@ -10,4 +10,7 @@ import java.util.*;
 @Repository
 public interface ProfessorRepository extends JpaRepository<ProfessorModel, Long> {
      List<ProfessorModel> findByEspecialidade(Especializacao especialidade);
+
+    Optional<ProfessorModel> findByUserEmail(String email);
+
 }

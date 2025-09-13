@@ -64,8 +64,4 @@ public class UserService {
         usuario.setRole(user.getRole());
         return userRepository.save(usuario);
     }
-
-    public Optional<UserModel> buscarPorEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
 }

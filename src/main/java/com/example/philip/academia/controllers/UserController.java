@@ -7,7 +7,6 @@ import com.example.philip.academia.dtos.users.UserDTO;
 import com.example.philip.academia.models.UserModel;
 import com.example.philip.academia.services.AuthService;
 import com.example.philip.academia.services.UserService;
-import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +26,7 @@ public class UserController {
     private AuthService authService;
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<ResponseDTO<Void>> cadastrarProfessor(@RequestBody @Valid UserDTO user) {
+    public ResponseEntity<ResponseDTO<Void>> cadastrarUsuario(@RequestBody @Valid UserDTO user) {
         userService.cadastrarUsuario(user);
 
         ResponseDTO<Void> responseDTO = new ResponseDTO<>(

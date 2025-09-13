@@ -2,14 +2,12 @@ package com.example.philip.academia.models;
 
 import com.example.philip.academia.enums.professores.Especializacao;
 import com.example.philip.academia.enums.professores.Formacao;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -37,6 +35,7 @@ public class ProfessorModel {
     private Formacao formacao;
 
     @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<HorarioDisponivelModel> horarios;
 
 }

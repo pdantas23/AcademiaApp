@@ -1,5 +1,6 @@
 package com.example.philip.academia.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,5 +30,6 @@ public class HorarioDisponivelModel {
 
     @ManyToOne
     @JoinColumn(name = "professor_id")
+    @JsonBackReference
     private ProfessorModel professor;
 }
