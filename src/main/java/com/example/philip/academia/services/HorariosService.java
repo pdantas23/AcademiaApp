@@ -9,6 +9,9 @@ import com.example.philip.academia.repositories.ProfessorRepository;
 import com.example.philip.academia.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.LinkedHashMap;
 
 import java.time.DayOfWeek;
@@ -19,7 +22,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class HorariosService {
-
     @Autowired
     private ProfessorRepository professorRepository;
 
@@ -27,39 +29,40 @@ public class HorariosService {
         ProfessorModel professor = professorRepository.findByUserEmail(userDetails.getEmail())
                 .orElseThrow(() -> new RuntimeException("Professor não encontrado."));
 
-        // Limpa horários antigos
         professor.getHorarios().clear();
-
         List<HorarioDisponivelModel> horarios = new ArrayList<>();
 
         for (HorarioDisponivelDTO dto : horariosDTO) {
+            LocalTime inicio = dto.getHoraInicio();
+            LocalTime fim = dto.getHoraFim();
+            Duration duracaoSlot = Duration.ofMinutes(60);
 
-            // Verifica sobreposição com os horários já adicionados nesta lista
-            boolean sobreposto = horarios.stream()
-                    .anyMatch(h -> h.getDiaDaSemana() == dto.getDiaDaSemana() &&
-                            h.getHoraInicio().isBefore(dto.getHoraFim()) &&
-                            dto.getHoraInicio().isBefore(h.getHoraFim()));
-            if (sobreposto) {
-                throw new RuntimeException("Horário sobreposto: " + dto.getDiaDaSemana() + " " + dto.getHoraInicio() + " - " + dto.getHoraFim());
+            while (inicio.plus(duracaoSlot).compareTo(fim) <= 0) {
+                LocalTime slotInicio = inicio;
+                LocalTime slotFim = inicio.plus(duracaoSlot);
+
+                boolean sobreposto = horarios.stream()
+                        .anyMatch(h -> h.getDiaDaSemana() == dto.getDiaDaSemana() &&
+                                h.getHoraInicio().isBefore(slotFim) &&
+                                slotInicio.isBefore(h.getHoraFim()));
+                if (sobreposto) {
+                    throw new RuntimeException("Horário sobreposto: " + dto.getDiaDaSemana() + " " + slotInicio + " - " + slotFim);
+                }
+
+                HorarioDisponivelModel horario = new HorarioDisponivelModel();
+                horario.setDiaDaSemana(dto.getDiaDaSemana());
+                horario.setHoraInicio(slotInicio);
+                horario.setHoraFim(slotFim);
+                horario.setProfessor(professor);
+
+                horarios.add(horario);
+                inicio = slotFim;
             }
-
-            // Cria o horário
-            HorarioDisponivelModel horario = new HorarioDisponivelModel();
-            horario.setDiaDaSemana(dto.getDiaDaSemana());
-            horario.setHoraInicio(dto.getHoraInicio());
-            horario.setHoraFim(dto.getHoraFim());
-            horario.setProfessor(professor);
-
-            PeriodoDia periodo = PeriodoDia.fromHora(dto.getHoraInicio());
-            System.out.println("Horario " + dto.getHoraInicio() + " pertence ao período " + periodo);
-
-            horarios.add(horario);
         }
 
         professor.getHorarios().addAll(horarios);
         professorRepository.save(professor);
 
-        // Retorna agrupado por dia da semana, igual ao listarHorariosAgrupados
         return professor.getHorarios().stream()
                 .collect(Collectors.groupingBy(
                         HorarioDisponivelModel::getDiaDaSemana,

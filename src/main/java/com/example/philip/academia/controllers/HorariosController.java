@@ -53,7 +53,6 @@ public class HorariosController {
                 HttpStatus.OK,
                 horariosAgrupados
         );
-
         return ResponseEntity.ok(responseDTO);
     }
 }
